@@ -29,6 +29,7 @@ public:
 	vector<int> countdownInt;
 	vector<int> donotAccessNow;
 	vector<float> dwSum;
+	vector<int> access;//用来统计每次循环访问的节点的个数
 	vector<int> exist;//size为节点个数n，表示节点是否存在与当前属性的判断中。1表示存在，0表示不存在，默认是1
 	vector<int> mustDelete;//size为节点个数n，表示那些节点必定不存在与最后的结果中。1表示被删除，0表示未被删除，默认为0
 	vector<int> explored;//size为节点个数n，判断节点是否被访问，1表示被访问了，0表示unexplored，初始化为0
