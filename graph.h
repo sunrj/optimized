@@ -53,9 +53,9 @@ public:
 	vector<int> getUnion(vector<int> A, vector<int> B);//获得A与B的并集
 	vector<int> getDifference(vector<int> A, vector<int> B);//获得A\B，差集
 	float computeEdgeWeight(int id1, int id2, vector<int> A);//计算两个节点之间的边在给定的属性集下的权重
-	float comVerWonV(int id, int attributeId, vector<int> V);//计算节点在节点集V中和给定的属性集下的权重
+	float comVerWonV(int id, int attributeId);//计算节点在节点集V中和给定的属性集下的权重
 	void vertexDeletion(float w, int b);//初始化，把所有一定不会存在与weighted core的节点删除
-	vector<int> comWcoreOnV(float w, int attributeId, vector<int> V, vector<int> &reexist);//计算节点集V的范围内attribute weighted core
+	vector<int> comWcoreOnV(float w, int attributeId, vector<int> &reexist);//计算节点集V的范围内attribute weighted core
 	void vertexReset(vector<int> reexist);//重置节点的explored survived inH inNowWcore inNowSearchRange upWeight属性值
 	void existReset(vector<int> reexist);//把非mustDelete的节点的exist属性重置为true，因需要判断不同的属性集的情况下的结果，所有每次判断时不能遗留上一次的结果
 	void donotAccessNowReset(vector<int> reexist);

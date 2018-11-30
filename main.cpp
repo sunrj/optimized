@@ -3,13 +3,13 @@
 int main()
 {
 	Graph g;
-	string file1 = "196591.txt", file2 = "196591_300_10-99.txt", file3 = "196591_300_10-99bing.txt", file4 = "196591_300_10-99jiao.txt";
+	string file1 = "58228.txt", file2 = "58228_300_10-99.txt", file3 = "58228_300_10-99bing.txt", file4 = "58228_300_10-99jiao.txt";
 	for (int i = 0; i < 300; i++) //这个数值是总的属性个数，用不同的数据集要改的
 		g.allAttribute.push_back(i);
 	g.dataInput(file1, file2, file3, file4);
 	double algStartTime = (double)clock() / CLOCKS_PER_SEC;
 	vector<int> A = {};
-	A = g.optimized(0.1, 50);
+	A = g.optimized(0.1, 20);
 	double runtime = (double)clock() / CLOCKS_PER_SEC - algStartTime;
 	cout << "Runtime = " << runtime << endl;
 	cout << "A.size = " << A.size() << endl;

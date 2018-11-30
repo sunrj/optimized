@@ -248,7 +248,7 @@ void Graph::getEachWiCore(float w)
 		cout << "getW" << *aId << "core ";
 		vector<int> reexist = {};
 		double algStartTime = (double)clock() / CLOCKS_PER_SEC;
-		WiCore.push_back(comWcoreOnV(w, *aId, Vi[*aId], reexist));
+		WiCore.push_back(comWcoreOnV(w, *aId, reexist));
 		double runtime = (double)clock() / CLOCKS_PER_SEC - algStartTime;
 		cout << "runtime = " << runtime << endl;
 		existReset(reexist);
@@ -360,7 +360,7 @@ float Graph::computeEdgeWeight(int id1, int count, vector<int> A)
 	return result;//保留小数点后三位
 }
 
-float Graph::comVerWonV(int id, int attributeId, vector<int> V)
+float Graph::comVerWonV(int id, int attributeId)
 {
 	int count = 0;
 	float result = 0.0;
@@ -368,14 +368,11 @@ float Graph::comVerWonV(int id, int attributeId, vector<int> V)
 	for (nei = vertex[id].begin() + 1; nei != vertex[id].end(); nei++)
 	{
 		count++;
-		if (BinarySearch(V, *nei, V.size()))//!mustDelete[*nei] && inNowWcore[*nei] || 
-		{
-			//float temp = computeEdgeWeight(id, *nei, A);
-			//float temp = computeEdgeWeight(id, count, A);
-			float temp = edgeWeightOnEachAtt[id][count][attributeId];
-			tempEdgeWeight[id][count] = temp;
-			result = result + temp;
-		}
+		//float temp = computeEdgeWeight(id, *nei, A);
+		//float temp = computeEdgeWeight(id, count, A);
+		float temp = edgeWeightOnEachAtt[id][count][attributeId];
+		tempEdgeWeight[id][count] = temp;
+		result = result + temp;
 	}
 	return result;
 }
@@ -566,7 +563,7 @@ void Graph::vertexDeletion(float w, int b)
 	}
 }
 
-vector<int> Graph::comWcoreOnV(float w, int attributeId, vector<int> V, vector<int> &reexist)
+vector<int> Graph::comWcoreOnV(float w, int attributeId, vector<int> &reexist)
 {
 	vector<int> result = {};
 	queue<int> delVertexId = {};//用队列存储所有不满足条件的节点的id
@@ -574,7 +571,7 @@ vector<int> Graph::comWcoreOnV(float w, int attributeId, vector<int> V, vector<i
 	{
 		if (!mustDelete[i])
 		{
-			weight[i] = comVerWonV(i, attributeId, V);//计算了节点集V中的所有存在节点在V集范围内的weight
+			weight[i] = comVerWonV(i, attributeId);//计算了节点集V中的所有存在节点在V集范围内的weight
 			if (weight[i] < w)
 			{
 				exist[i] = 0;
@@ -592,7 +589,7 @@ vector<int> Graph::comWcoreOnV(float w, int attributeId, vector<int> V, vector<i
 		for (nei = vertex[delId].begin() + 1; nei != vertex[delId].end(); nei++)
 		{
 			count++;
-			if (exist[*nei] && BinarySearch(V, *nei, V.size()))//!mustDelete[*nei] && 
+			if (exist[*nei])//!mustDelete[*nei] &&  && BinarySearch(V, *nei, V.size())
 			{
 				//weight[*nei] = weight[*nei] - computeEdgeWeight(delId, *nei, A);
 				weight[*nei] = weight[*nei] - tempEdgeWeight[delId][count];
